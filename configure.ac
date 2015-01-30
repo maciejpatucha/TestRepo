@@ -22,5 +22,6 @@ AC_PROG_LIBTOOL
 AC_CONFIG_FILES(Makefile
                 libdevicelist/Makefile
                 libdeviceproperties/Makefile
+                libdiscoverandroid/Makefile
                 testApp/Makefile)
 AC_OUTPUT

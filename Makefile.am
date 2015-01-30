@@ -1,1 +1,1 @@
-SUBDIRS=libdevicelist libdeviceproperties testApp
+SUBDIRS=libdevicelist libdeviceproperties libdiscoverandroid testApp
