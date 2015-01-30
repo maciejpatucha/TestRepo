@@ -12,8 +12,8 @@ libdiscoverandroid_la_SOURCES = discover_android.c discover_android_threads.c
 
 # Linker options libTestProgram
 libdiscoverandroid_la_LDFLAGS = -lpthread \
-                                ${top_srcdir}/libdeviceproperties/libdeviceproperties.la \
-                                ${top_srddir}/libdevicelist/libdevicelist.la
+                                ../libdeviceproperties/libdeviceproperties.la \
+                                ../libdevicelist/libdevicelist.la
 
 # Compiler options. Here we are adding the include directory
 # to be searched for headers included in the source code.

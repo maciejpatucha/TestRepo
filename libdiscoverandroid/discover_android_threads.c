@@ -50,7 +50,7 @@ void* GetInfo(void *arg)
 
 androidprops_t *GetDeviceInfo(char *deviceSerialNo)
 {
-    pthread_t *getInfoThread;
+    pthread_t getInfoThread;
 
     if (pthread_create(&getInfoThread, NULL, GetInfo, (void *)deviceSerialNo) == -1)
     {
