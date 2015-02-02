@@ -3,16 +3,19 @@
 
 #include "device_list.h"
 #include "device_properties.h"
+#include "discover_android.h"
 
 static void DeviceListTest();
 static void DevicePropertiesAndroidTest();
 static void DevicePropertiesiOSTest();
+static void AndroidDiscoveryTest();
 
 int main()
 {
     DeviceListTest();
     DevicePropertiesAndroidTest();
     DevicePropertiesiOSTest();
+    AndroidDiscoveryTest();
     return 0;   
 }
 
@@ -82,4 +85,28 @@ static void DevicePropertiesiOSTest()
     PrintProperties(IOS, (void *) iosProps);
     printf("Cleaning up ios device properties...SUCCESS\n");
     CleanupProperties(IOS, (void *) iosProps);
+}
+
+static void AndroidDiscoveryTest()
+{
+    printf("\nTesting android device discovery...\n\n");
+    devicelist_t *androidDevices = GetConnectedDevices();
+    if (androidDevices == NULL)
+    {
+        printf("Retriving android device list...FAILED\n");
+        return;
+    }
+    printf("Retriving andoird device list...SUCCESS\n");
+
+    printf("Number of connected andoird devices...%d\n", androidDevices->elementCount);
+
+    if (androidDevices->elementCount > 0)
+    {
+        androidprops_t *props = (androidprops_t *)androidDevices->elements[0]->data;
+        printf("First device on the list: %s %s\n", props->deviceManufacturer, props->deviceModel);
+    }
+    else
+    {
+        printf("No connected devices found\n");
+    }
 }
