@@ -90,7 +90,7 @@ static void DevicePropertiesiOSTest()
 static void AndroidDiscoveryTest()
 {
     printf("\nTesting android device discovery...\n\n");
-    devicelist_t *androidDevices = GetConnectedDevices();
+    devicelist_t *androidDevices = GetConnectedAndroidDevices();
     if (androidDevices == NULL)
     {
         printf("Retriving android device list...FAILED\n");

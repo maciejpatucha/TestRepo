@@ -11,7 +11,7 @@
 
 static char *ParseBuffer(char *buffer);
 
-devicelist_t *GetConnectedDevices()
+devicelist_t *GetConnectedAndroidDevices()
 {
     StartADBDaemon();
     int fd[2];

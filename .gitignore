@@ -38,3 +38,8 @@ libdiscoverandroid/.deps/
 libdiscoverandroid/.libs/
 libdiscoverandroid/libdiscoverandroid.la
 libdiscoverandroid/libdiscoverandroid_la-*
+
+libdiscoverios/.deps/
+libdiscoverios/.libs/
+libdiscoverios/libdiscoverios.la
+libdiscoverios/libdiscoverios_la-*

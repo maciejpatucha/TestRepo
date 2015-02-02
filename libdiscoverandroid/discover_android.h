@@ -3,6 +3,6 @@
 
 #include "device_list.h"
 
-devicelist_t *GetConnectedDevices();
+devicelist_t *GetConnectedAndroidDevices();
 
 #endif // DISCOVER_ANDROID_H 

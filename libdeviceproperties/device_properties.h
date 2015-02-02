@@ -27,7 +27,8 @@ enum  _iosdevice{
     IPADAIR2,
     IPADMINI,
     IPADMINI2,
-    IPADMINI3
+    IPADMINI3,
+    UNKNOWN
 };
 
 typedef enum _iosdevice iosdevice_t;

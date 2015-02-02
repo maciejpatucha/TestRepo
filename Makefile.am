@@ -1,2 +1,2 @@
 ACLOCAL_AMFLAGS=-I m4
-SUBDIRS=libdevicelist libdeviceproperties libdiscoverandroid testApp
+SUBDIRS=libdevicelist libdeviceproperties libdiscoverandroid libdiscoverios testApp
