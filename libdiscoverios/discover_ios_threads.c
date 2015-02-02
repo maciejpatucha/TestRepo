@@ -41,7 +41,7 @@ void* GetInfo(void *arg)
 
     while (fgets(ideviceBuffer, 2048, input));
 
-    return (void *) ParseOutput(ideviceBuffer);
+    return (void *) ParseOutput(ideviceBuffer, serialNo);
 }
 
 iosprops_t *GetDeviceInfo(char *deviceSerialNo)
@@ -125,7 +125,7 @@ static iosprops_t *ParseOutputWithSIMCard(char *buffer, char *udid)
            deviceType,
            osVersion); 
 
-    iospros_t *newProps = calloc(1, sizeof(iosprops_t));
+    iosprops_t *newProps = calloc(1, sizeof(iosprops_t));
 
     if (newProps == NULL)
     {
@@ -173,7 +173,7 @@ static iosprops_t *ParseOutputWithoutSIMCard(char *buffer, char *udid)
 
     iosprops_t *newProps = calloc(1, sizeof(iosprops_t));
 
-    if (newProps = NULL)
+    if (newProps == NULL)
     {
         printf("calloc() failed\n");
         return NULL;

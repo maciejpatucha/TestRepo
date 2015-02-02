@@ -6,8 +6,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include "discover_android.h"
-#include "discover_android_threads.h"
+#include "discover_ios.h"
+#include "discover_ios_threads.h"
 
 devicelist_t *GetConnectedDevices()
 {
@@ -44,7 +44,7 @@ devicelist_t *GetConnectedDevices()
     char buffer[42];
     FILE *input = fdopen(fd[0], "r");
     int deviceCount = 0;
-    char **udidList = (char *)calloc(100, sizeof(char *));
+    char **udidList = (char **)calloc(100, sizeof(char *));
 
     while(fgets(buffer, 42, input))
     {
@@ -76,6 +76,6 @@ devicelist_t *GetConnectedDevices()
         }
     }
 
-    return deviceList;
+    return iosDeviceList;
 }
 
