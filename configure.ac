@@ -2,6 +2,8 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
 AC_INIT(dmserver, 1.0)
+CC="clang"
+CFLAGS="-g -O0 -std=gnu99"
 AC_PROG_CC
 
 AC_CANONICAL_SYSTEM

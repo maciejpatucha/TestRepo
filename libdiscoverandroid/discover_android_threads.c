@@ -8,7 +8,6 @@
 
 #include "discover_android_threads.h"
 
-static void StartADBDaemon(void);
 static char *GetDeviceManufacturer(char *deviceSerialNo);
 static char *GetDeviceModel(char *deviceSerialNo);
 static char *GetDeviceOSVersion(char *deviceSerialNo);
@@ -68,7 +67,7 @@ androidprops_t *GetDeviceInfo(char *deviceSerialNo)
     return (androidprops_t *) result;
 }
 
-static void StartADBDaemon(void)
+void StartADBDaemon(void)
 {
     pid_t daemon = fork();
 

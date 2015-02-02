@@ -4,5 +4,6 @@
 #include "device_properties.h"
 
 androidprops_t *GetDeviceInfo(char *deviceSerialNo);
+void StartADBDaemon(void);
 
 #endif
