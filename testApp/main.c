@@ -102,8 +102,13 @@ static void AndroidDiscoveryTest()
 
     if (androidDevices->elementCount > 0)
     {
-        androidprops_t *props = (androidprops_t *)androidDevices->elements[0]->data;
-        printf("First device on the list: %s %s\n", props->deviceManufacturer, props->deviceModel);
+        androidprops_t *props = NULL;
+
+        for (int i = 0; i < androidDevices->elementCount; i++)
+        {
+            devicelistelement_t *element = GetElementByID(androidDevices, i); 
+            PrintProperties(ANDROID, (androidprops_t *)element->data);
+        }
     }
     else
     {

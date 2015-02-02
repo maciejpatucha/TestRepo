@@ -3,7 +3,7 @@
 
 struct _androidprops
 {
-    char deviceID[16];
+    char deviceID[17];
     char deviceManufacturer[16];
     char deviceModel[64];
     char androidVersion[8];
@@ -41,7 +41,7 @@ typedef enum _proptype proptype_t;
 
 struct _iosprops
 {
-    char udid[41];
+    char udid[42];
     char deviceName[256];
     iosdevice_t deviceType;
     char osVersion[8];

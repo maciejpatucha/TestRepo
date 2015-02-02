@@ -7,6 +7,7 @@
 static void PrintAndroidProps(androidprops_t *props);
 static void PrintiOSProps(iosprops_t *props);
 static char *GetPhoneString(iosdevice_t deviceType);
+static void RemoveNewLine(char *string, int stringLen);
 
 androidprops_t *CreateAndroidProperties(char *deviceID,
                                         char *deviceManufacturer,
@@ -25,6 +26,11 @@ androidprops_t *CreateAndroidProperties(char *deviceID,
     strncpy(newProps->deviceManufacturer, deviceManufacturer, sizeof(newProps->deviceManufacturer));
     strncpy(newProps->deviceModel, deviceModel, sizeof(newProps->deviceModel));
     strncpy(newProps->androidVersion, androidVersion, sizeof(newProps->androidVersion));
+
+    RemoveNewLine(newProps->deviceID, strlen(newProps->deviceID));
+    RemoveNewLine(newProps->deviceManufacturer, strlen(newProps->deviceManufacturer));
+    RemoveNewLine(newProps->deviceModel, strlen(newProps->deviceModel));
+    RemoveNewLine(newProps->androidVersion, strlen(newProps->androidVersion));
 
     return newProps;
 }
@@ -46,6 +52,10 @@ iosprops_t *CreateiOSProperties(char *udid,
     strncpy(newProps->deviceName, deviceName, sizeof(newProps->deviceName));
     newProps->deviceType = deviceType;
     strncpy(newProps->osVersion, osVersion, sizeof(newProps->osVersion));
+
+    RemoveNewLine(newProps->udid, strlen(newProps->udid));
+    RemoveNewLine(newProps->deviceName, strlen(newProps->deviceName));
+    RemoveNewLine(newProps->osVersion, strlen(newProps->osVersion));
 
     return newProps;
 }
@@ -88,13 +98,13 @@ void CleanupProperties(proptype_t propType, void *props)
 
 static void PrintAndroidProps(androidprops_t *props)
 {
-    printf("Android Device properties:       \n"
-           "---------------------------------\n"
-           "Device ID:           %s          \n"
-           "Device Manufacturer: %s          \n"
-           "Device Model:        %s          \n"
-           "Android Vesion:      %s          \n"
-           "---------------------------------\n",
+    printf("Android Device properties:\n"
+           "----------------------------------------------------\n"
+           "Device ID:\t\t\t%s\n"
+           "Device Manufacturer:\t\t%s\n"
+           "Device Model:\t\t\t%s\n"
+           "Android Vesion:\t\t\t%s\n"
+           "----------------------------------------------------\n",
            props->deviceID,
            props->deviceManufacturer,
            props->deviceModel,
@@ -139,4 +149,14 @@ static char *GetPhoneString(iosdevice_t deviceType)
     };
 
     return deviceString[deviceType];
+}
+
+static void RemoveNewLine(char *string, int stringLen)
+{
+    char *tmp = strchr(string, '\n');
+
+    if (tmp != NULL)
+    {
+        *tmp = 0;
+    }
 }

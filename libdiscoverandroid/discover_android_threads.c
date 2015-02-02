@@ -161,7 +161,7 @@ static char *GetDeviceOSVersion(char *deviceSerialNo)
         dup2(fd[1], 1);
         dup2(fd[1], 2);
         close(fd[1]);
-        execl("/usr/bin/adb", "adb", "-s", deviceSerialNo, "shell", "getprop ro.build.version", NULL);
+        execl("/usr/bin/adb", "adb", "-s", deviceSerialNo, "shell", "getprop ro.build.version.release", NULL);
     }
 
     char *version = calloc(8, sizeof(char));

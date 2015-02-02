@@ -14,7 +14,6 @@ static char *ParseBuffer(char *buffer);
 devicelist_t *GetConnectedDevices()
 {
     StartADBDaemon();
-
     int fd[2];
 
     if (pipe(fd) == -1)
@@ -33,7 +32,6 @@ devicelist_t *GetConnectedDevices()
         close(fd[1]);
         execl("/usr/bin/adb", "adb", "devices", NULL);
     }
-
     char buffer[1024];
     close(fd[1]);
     FILE *input = fdopen(fd[0], "r");
@@ -60,7 +58,7 @@ devicelist_t *GetConnectedDevices()
         
         if (serial == NULL)
         {
-            break;
+            continue;
         }
 
         serialList[deviceCount++] = serial;
@@ -100,13 +98,6 @@ static char *ParseBuffer(char *buffer)
     }
     
     char *serial = calloc(16, sizeof(char));
-
-    if (serial == NULL)
-    {
-        printf("calloc() failed\n");
-        return NULL;
-    }
-
     sscanf(buffer, "%s %*s", serial);
     memset(buffer, 0, 1024);
 
