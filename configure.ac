@@ -24,4 +24,5 @@ AC_CONFIG_FILES(Makefile
                 libdeviceproperties/Makefile
                 libdiscoverandroid/Makefile
                 testApp/Makefile)
+AC_CONFIG_MACRO_DIR([m4])
 AC_OUTPUT
