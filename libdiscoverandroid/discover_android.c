@@ -7,8 +7,11 @@
 #include <sys/wait.h>
 
 #include "discover_android.h"
+#include "discover_android_threads.h"
 
 devicelist_t *GetConnectedDevices()
 {
+    int fd[2];
+
     return NULL;
 }
