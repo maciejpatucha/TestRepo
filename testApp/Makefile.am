@@ -21,9 +21,11 @@ testApp_SOURCES= main.c
 # Linker options for a.out
 testApp_LDFLAGS = $(top_srcdir)/libdevicelist/libdevicelist.la \
                   $(top_srcdir)/libdeviceproperties/libdeviceproperties.la \
-                  $(top_srcdir)/libdiscoverandroid/libdiscoverandroid.la
+                  $(top_srcdir)/libdiscoverandroid/libdiscoverandroid.la \
+                  $(top_srcdir)/libdiscoverios/libdiscoverios.la
 
 # Compiler options for a.out
 testApp_CPPFLAGS = -I$(top_srcdir)/libdevicelist \
                    -I$(top_srcdir)/libdeviceproperties \
-                   -I$(top_srcdir)/libdiscoverandroid
+                   -I$(top_srcdir)/libdiscoverandroid \
+                   -I$(top_srcdir)/libdiscoverios

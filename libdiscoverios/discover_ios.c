@@ -5,11 +5,12 @@
 #include <pthread.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 #include "discover_ios.h"
 #include "discover_ios_threads.h"
 
-devicelist_t *GetConnectedDevices()
+devicelist_t *GetConnectediOSDevices()
 {
     int fd[2];
 
@@ -30,7 +31,7 @@ devicelist_t *GetConnectedDevices()
         execl("/usr/bin/idevice_id", "idevice_id", "-l", NULL);
     }
 
-    close(fd[0]);
+    close(fd[1]);
     int status;
 
     waitpid(iDevicePID, &status, 0);
@@ -41,13 +42,23 @@ devicelist_t *GetConnectedDevices()
         return NULL;
     }
 
-    char buffer[42];
+    char buffer[41];
     FILE *input = fdopen(fd[0], "r");
+    if (input == NULL)
+    {
+        printf("fdopen() failed: %s\n", strerror(errno));
+        return NULL;
+    }
     int deviceCount = 0;
     char **udidList = (char **)calloc(100, sizeof(char *));
 
-    while(fgets(buffer, 42, input))
+    while(fgets(buffer, 41, input))
     {
+        if (buffer[0] == '\n')
+        {
+            continue;
+        }
+
         if (deviceCount < 100)
         {
             udidList[deviceCount++] = strdup(buffer);

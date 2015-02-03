@@ -8,6 +8,7 @@
 
 #include "discover_ios_threads.h"
 
+static iosprops_t *GetDeviceProps(char *udid);
 static iosprops_t *ParseOutput(char *buffer, char *udid);
 static iosprops_t *ParseOutputWithSIMCard(char *buffer, char *udid);
 static iosprops_t *ParseOutputWithoutSIMCard(char *buffer, char *udid);
@@ -16,6 +17,42 @@ static iosdevice_t ParseDeviceTypeString(char *deviceTypeString);
 void* GetInfo(void *arg)
 {
     char *serialNo = (char *) arg;
+    iosprops_t *deviceProps = NULL;
+    printf("serialNo: %s\n", serialNo);
+    
+    if ((deviceProps = GetDeviceProps(serialNo)) == NULL)
+    {
+        printf("Failed to get device properties\n");
+        return NULL;
+    }
+    
+    return (void *)deviceProps;
+}
+
+iosprops_t *GetDeviceInfo(char *deviceSerialNo)
+{
+    printf("GetDeviceInfo() serialNo: %s\n", deviceSerialNo);
+    return GetDeviceProps(deviceSerialNo);
+/*    pthread_t getInfoThread;
+    printf("GetDeviceInfo() serialNo: %s\n", deviceSerialNo);
+    if (pthread_create(&getInfoThread, NULL, GetInfo, (void *)deviceSerialNo) == -1)
+    {
+        printf("Failed to create getInfoThread...\n");
+        return NULL;
+    }
+
+    void *result;
+    if (pthread_join(getInfoThread, &result) == -1)
+    {
+        printf("Failed to join getInfoThread...\n");
+        return NULL;
+    }
+
+    return (iosprops_t *) result;*/
+}
+
+static iosprops_t *GetDeviceProps(char *udid)
+{
     int fd[2];
 
     if (pipe(fd) == -1)
@@ -32,36 +69,21 @@ void* GetInfo(void *arg)
         dup2(fd[1], 1);
         dup2(fd[1], 2);
         close(fd[1]);
-        execl("/usr/local/bin/ideviceinfo", "ideviceinfo", "-s", "-u", serialNo, NULL);
+        execl("/usr/bin/ideviceinfo", "ideviceinfo", "-s", "-u", udid, NULL);
     }
 
     close(fd[1]);
     FILE *input = fdopen(fd[0], "r");
     char ideviceBuffer[2048];
 
-    while (fgets(ideviceBuffer, 2048, input));
-
-    return (void *) ParseOutput(ideviceBuffer, serialNo);
-}
-
-iosprops_t *GetDeviceInfo(char *deviceSerialNo)
-{
-    pthread_t getInfoThread;
-
-    if (pthread_create(&getInfoThread, NULL, GetInfo, (void *)deviceSerialNo) == -1)
+    while (fgets(ideviceBuffer, 2048, input))
     {
-        printf("Failed to create getInfoThread...\n");
-        return NULL;
+        printf("ideviceBuffer: %s\n", ideviceBuffer);
     }
 
-    void *result;
-    if (pthread_join(getInfoThread, &result) == -1)
-    {
-        printf("Failed to join getInfoThread...\n");
-        return NULL;
-    }
+    iosprops_t *props = ParseOutput(ideviceBuffer, udid);
 
-    return (iosprops_t *) result;
+    return props;
 }
 
 static iosprops_t *ParseOutput(char *buffer, char *udid)

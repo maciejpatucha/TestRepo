@@ -4,11 +4,13 @@
 #include "device_list.h"
 #include "device_properties.h"
 #include "discover_android.h"
+#include "discover_ios.h"
 
 static void DeviceListTest();
 static void DevicePropertiesAndroidTest();
 static void DevicePropertiesiOSTest();
 static void AndroidDiscoveryTest();
+static void IOSDiscoveryTest();
 
 int main()
 {
@@ -16,6 +18,7 @@ int main()
     DevicePropertiesAndroidTest();
     DevicePropertiesiOSTest();
     AndroidDiscoveryTest();
+    IOSDiscoveryTest();
     return 0;   
 }
 
@@ -108,6 +111,38 @@ static void AndroidDiscoveryTest()
         {
             devicelistelement_t *element = GetElementByID(androidDevices, i); 
             PrintProperties(ANDROID, (androidprops_t *)element->data);
+        }
+    }
+    else
+    {
+        printf("No connected devices found\n");
+    }
+}
+
+static void IOSDiscoveryTest()
+{
+    printf("\nTesting ios device discovery...\n\n");
+    
+    devicelist_t *iosDevices = GetConnectediOSDevices();
+    
+    if (iosDevices == NULL)
+    {
+        printf("Retriving ios device list...FAILED\n");
+        return;
+    }
+
+    printf("Retriving ios device list...SUCCESS\n");
+
+    printf("Number of connected ios devices...%d\n", iosDevices->elementCount);
+
+    if (iosDevices->elementCount > 0)
+    {
+        iosprops_t *props = NULL;
+
+        for (int i = 0; i < iosDevices->elementCount; i++)
+        {
+            devicelistelement_t *element = GetElementByID(iosDevices, i);
+            PrintProperties(IOS, (iosprops_t *)element->data);
         }
     }
     else

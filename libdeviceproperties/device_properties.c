@@ -114,13 +114,13 @@ static void PrintAndroidProps(androidprops_t *props)
 
 static void PrintiOSProps(iosprops_t *props)
 {
-    printf("iOS Device properties:           \n"
-           "---------------------------------\n"
-           "UDID:                %s          \n"
-           "Device Name:         %s          \n"
-           "Device Type:         %s          \n"
-           "iOS Vesion:          %s          \n"
-           "---------------------------------\n",
+    printf("iOS Device properties:\n"
+           "----------------------------------------------------\n"
+           "UDID:\t\t\t%s\n"
+           "Device Name:\t\t\t%s\n"
+           "Device Type:\t\t\t%s\n"
+           "iOS Vesion:\t\t\t%s\n"
+           "----------------------------------------------------\n",
            props->udid,
            props->deviceName,
            GetPhoneString(props->deviceType),

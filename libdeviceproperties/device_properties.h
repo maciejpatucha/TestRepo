@@ -42,7 +42,7 @@ typedef enum _proptype proptype_t;
 
 struct _iosprops
 {
-    char udid[42];
+    char udid[41];
     char deviceName[256];
     iosdevice_t deviceType;
     char osVersion[8];
