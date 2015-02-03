@@ -116,7 +116,7 @@ static void PrintiOSProps(iosprops_t *props)
 {
     printf("iOS Device properties:\n"
            "----------------------------------------------------\n"
-           "UDID:\t\t\t%s\n"
+           "UDID:\t\t\t\t%s\n"
            "Device Name:\t\t\t%s\n"
            "Device Type:\t\t\t%s\n"
            "iOS Vesion:\t\t\t%s\n"
@@ -129,7 +129,7 @@ static void PrintiOSProps(iosprops_t *props)
 
 static char *GetPhoneString(iosdevice_t deviceType)
 {
-    char *deviceString[16] = {
+    char *deviceString[17] = {
         "iPhone4",
         "iPhone4s",
         "iPhone5",
@@ -145,7 +145,8 @@ static char *GetPhoneString(iosdevice_t deviceType)
         "iPadAir2",
         "iPadMini",
         "iPadMini2",
-        "iPadMini3"
+        "iPadMini3",
+        "Unknown device"
     };
 
     return deviceString[deviceType];
