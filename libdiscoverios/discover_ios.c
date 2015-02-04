@@ -7,7 +7,7 @@
 #include <errno.h>
 
 #include "discover_ios.h"
-#include "discover_ios_threads.h"
+#include "device_properties.h"
 
 typedef enum {
     DEVICETYPE,
@@ -22,7 +22,6 @@ typedef struct {
 
 static iosprops_t *GetDeviceProps(char *udid);
 static property_t *ParseOutput(char *buffer);
-//static iosprops_t *ParseOutput(char *buffer, char *udid);
 static iosprops_t *ParseOutputWithSIMCard(char *buffer, char *udid);
 static iosprops_t *ParseOutputWithoutSIMCard(char *buffer, char *udid);
 static iosdevice_t ParseDeviceTypeString(char *deviceTypeString);
@@ -86,13 +85,29 @@ devicelist_t *GetConnectediOSDevices()
             break;
         }
     }
+    fclose(input);
+
+    devicelist_t *iosDeviceList = CreateDeviceList();
+    if (iosDeviceList == NULL)
+    {
+        return NULL;
+    }
 
     for (int i = 0; i < deviceCount; i++)
     {
-        GetDeviceProps(udidList[i]);
+        iosprops_t *props = GetDeviceProps(udidList[i]);
+        if (AddElementToDeviceList(iosDeviceList, (void *)props) == false)
+        {
+            printf("Failed to add element to list\n");
+            return NULL;
+        }
+
+        free(udidList[i]);
     }
 
-    return NULL;
+    free(udidList);
+
+    return iosDeviceList;
 }
 
 static iosprops_t *GetDeviceProps(char *udid)
@@ -119,7 +134,6 @@ static iosprops_t *GetDeviceProps(char *udid)
     close(fd[1]);
     FILE *input = fdopen(fd[0], "r");
     char ideviceBuffer[1024];
-
     iosprops_t *newProps = (iosprops_t *) calloc(1, sizeof(iosprops_t));
 
     strncpy(newProps->udid, udid, sizeof(newProps->udid));
@@ -147,9 +161,9 @@ static iosprops_t *GetDeviceProps(char *udid)
             }
         }
     }
-    PrintProperties(IOS, newProps);
+    fclose(input);
 
-    return NULL;
+    return newProps;
 }
 
 static property_t *ParseOutput(char *buffer)

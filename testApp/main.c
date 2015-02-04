@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "device_list.h"
 #include "device_properties.h"
@@ -38,7 +39,7 @@ static void DeviceListTest()
     printf("SUCCESS\n");
 
     printf("Adding new element to list...");
-    char *data = "Some data";
+    char *data = strdup("Some data");
     if (AddElementToDeviceList(newList, (void *)data) == false)
     {
         printf("FAILED\n");
@@ -47,6 +48,7 @@ static void DeviceListTest()
 
     printf("SUCCESS\n");
 
+    CleanupDeviceList(newList);
     printf("Cleaning up device list...SUCCESS\n");
 }
 
@@ -117,6 +119,9 @@ static void AndroidDiscoveryTest()
     {
         printf("No connected devices found\n");
     }
+
+    CleanupDeviceList(androidDevices);
+    printf("Cleaning up andorid device list...SUCCESS\n");
 }
 
 static void IOSDiscoveryTest()
@@ -149,4 +154,6 @@ static void IOSDiscoveryTest()
     {
         printf("No connected devices found\n");
     }
+
+    CleanupDeviceList(iosDevices);
 }

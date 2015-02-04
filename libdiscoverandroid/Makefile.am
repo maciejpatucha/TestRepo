@@ -8,7 +8,7 @@ lib_LTLIBRARIES = libdiscoverandroid.la
 # Build information for each library
 
 # Sources for libdiscoverandroid
-libdiscoverandroid_la_SOURCES = discover_android.c discover_android_threads.c
+libdiscoverandroid_la_SOURCES = discover_android.c
 
 # Linker options libTestProgram
 libdiscoverandroid_la_LDFLAGS = -lpthread \

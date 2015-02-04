@@ -8,7 +8,7 @@ lib_LTLIBRARIES = libdiscoverios.la
 # Build information for each library
 
 # Sources for libdiscoverios
-libdiscoverios_la_SOURCES = discover_ios.c discover_ios_threads.c
+libdiscoverios_la_SOURCES = discover_ios.c
 
 # Linker options libTestProgram
 libdiscoverios_la_LDFLAGS = -lpthread \

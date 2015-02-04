@@ -3,7 +3,7 @@
 
 struct _androidprops
 {
-    char deviceID[17];
+    char deviceID[32];
     char deviceManufacturer[16];
     char deviceModel[64];
     char androidVersion[8];
