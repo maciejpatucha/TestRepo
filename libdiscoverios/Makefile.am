@@ -11,8 +11,7 @@ lib_LTLIBRARIES = libdiscoverios.la
 libdiscoverios_la_SOURCES = discover_ios.c
 
 # Linker options libTestProgram
-libdiscoverios_la_LDFLAGS = -lpthread \
-                            ../libdeviceproperties/libdeviceproperties.la \
+libdiscoverios_la_LDFLAGS = ../libdeviceproperties/libdeviceproperties.la \
                             ../libdevicelist/libdevicelist.la
 
 # Compiler options. Here we are adding the include directory

@@ -11,8 +11,7 @@ lib_LTLIBRARIES = libdiscoverandroid.la
 libdiscoverandroid_la_SOURCES = discover_android.c
 
 # Linker options libTestProgram
-libdiscoverandroid_la_LDFLAGS = -lpthread \
-                                ../libdeviceproperties/libdeviceproperties.la \
+libdiscoverandroid_la_LDFLAGS = ../libdeviceproperties/libdeviceproperties.la \
                                 ../libdevicelist/libdevicelist.la
 
 # Compiler options. Here we are adding the include directory
