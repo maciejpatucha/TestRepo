@@ -2,10 +2,10 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include "device_list.h"
-#include "device_properties.h"
-#include "discover_android.h"
-#include "discover_ios.h"
+#include <device_list.h>
+#include <device_properties.h>
+#include <discover_android.h>
+#include <discover_ios.h>
 
 static void DeviceListTest();
 static void DevicePropertiesAndroidTest();

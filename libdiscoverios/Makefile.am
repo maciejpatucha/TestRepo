@@ -16,6 +16,7 @@ libdiscoverios_la_LDFLAGS = ../libdeviceproperties/libdeviceproperties.la \
 
 # Compiler options. Here we are adding the include directory
 # to be searched for headers included in the source code.
-libdiscoverios_la_CPPFLAGS = -I${top_srcdir}/libdeviceproperties \
+libdiscoverios_la_CPPFLAGS = -I${top_srcdir}/libdiscoverios \
+                             -I${top_srcdir}/libdeviceproperties \
                              -I${top_srcdir}/libdevicelist
 

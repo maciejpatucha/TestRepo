@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "device_properties.h"
+#include <device_properties.h>
 
 static void PrintAndroidProps(androidprops_t *props);
 static void PrintiOSProps(iosprops_t *props);

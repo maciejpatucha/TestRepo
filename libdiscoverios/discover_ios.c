@@ -6,8 +6,8 @@
 #include <sys/wait.h>
 #include <errno.h>
 
-#include "discover_ios.h"
-#include "device_properties.h"
+#include <discover_ios.h>
+#include <device_properties.h>
 
 typedef enum {
     DEVICETYPE,

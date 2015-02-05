@@ -15,5 +15,5 @@ libdevicelist_la_LDFLAGS =
 
 # Compiler options. Here we are adding the include directory
 # to be searched for headers included in the source code.
-libdevicelist_la_CPPFLAGS =
+libdevicelist_la_CPPFLAGS = -I${top_srcdir}/libdevicelist
 

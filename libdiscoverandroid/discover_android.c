@@ -5,8 +5,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include "discover_android.h"
-#include "device_properties.h"
+#include <discover_android.h>
+#include <device_properties.h>
 
 static char *ParseBuffer(char *buffer);
 static androidprops_t *GetDeviceProps(char *deviceID);

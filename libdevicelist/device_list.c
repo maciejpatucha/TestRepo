@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "device_list.h"
+#include <device_list.h>
 
 static bool ReallocateArray(devicelistelement_t **array, int arraySize);
 
