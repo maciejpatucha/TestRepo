@@ -2,7 +2,6 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.59)
 AC_INIT(dmserver, 1.0)
-CC="clang"
 CFLAGS="-g -O0 -std=gnu99"
 AC_PROG_CC
 
@@ -13,6 +12,7 @@ AM_INIT_AUTOMAKE
 
 dnl this allows us specify individual liking flags for each target
 AM_PROG_CC_C_O 
+AM_SILENT_RULES([yes])
 
 dnl Initialize Libtool
 LT_INIT
@@ -26,6 +26,8 @@ AC_CONFIG_FILES(Makefile
                 libdeviceproperties/Makefile
                 libdiscoverandroid/Makefile
                 libdiscoverios/Makefile
+                libgentestconfig/Makefile
+                prepare-env/Makefile
                 testApp/Makefile)
 AC_CONFIG_MACRO_DIR([m4])
 AC_OUTPUT

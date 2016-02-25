@@ -43,3 +43,13 @@ libdiscoverios/.deps/
 libdiscoverios/.libs/
 libdiscoverios/libdiscoverios.la
 libdiscoverios/libdiscoverios_la-*
+
+libgentestconfig/.deps/
+libgentestconfig/.libs/
+libgentestconfig/libgentestconfig.la
+libgentestconfig/libgentestconfig_la-*
+
+prepare-env/.deps/
+prepare-env/.libs/
+prepare-env/prepare-env
+prepare-env/prepare_env-main.o

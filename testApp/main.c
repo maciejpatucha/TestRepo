@@ -6,20 +6,18 @@
 #include <device_properties.h>
 #include <discover_android.h>
 #include <discover_ios.h>
+#include <gen_test_config.h>
 
 static void DeviceListTest();
 static void DevicePropertiesAndroidTest();
 static void DevicePropertiesiOSTest();
 static void AndroidDiscoveryTest();
 static void IOSDiscoveryTest();
+static void GenTestConfigTest();
 
 int main()
 {
-    DeviceListTest();
-    DevicePropertiesAndroidTest();
-    DevicePropertiesiOSTest();
-    AndroidDiscoveryTest();
-    IOSDiscoveryTest();
+    GenTestConfigTest();
     return 0;   
 }
 
@@ -156,4 +154,57 @@ static void IOSDiscoveryTest()
     }
 
     CleanupDeviceList(iosDevices);
+}
+
+static void GenTestConfigTest()
+{
+    printf("\nTestin generation of test config...\n\n");
+
+    devicelist_t *androidDevices = GetConnectedAndroidDevices();
+
+    if (androidDevices == NULL)
+    {
+        printf("Retriving android device list...FAILED\n");
+        return;
+    }
+
+    printf("Retriving android device list...SUCCESS\n");
+
+    printf("Number of connected android devices...%d\n", androidDevices->elementCount);
+
+    const char *methods[] = { "IntroSlideTest" , "mainViewTest", "searchTest", "recipeDetailTest", "favoriteListTest" };
+
+    if (CreateAndroidConfig(androidDevices, "/tmp/testng-android.xml", "food-app", "test mainView", "/tmp/packages/TV2Mad-debug.apk", "dk.tv2.automation.appium.mad.TestMainView", methods, 5))
+    {
+        printf("Creating configuration...SUCCESS\n");
+    }
+    else
+    {
+        printf("Creating configuration...FAILED\n");
+    }
+
+    CleanupDeviceList(androidDevices);
+
+    devicelist_t *iosDevices = GetConnectediOSDevices();
+
+    if (iosDevices == NULL)
+    {
+        printf("Retriving iOS device list...FAILED\n");
+        return;
+    }
+
+    printf("Retriving iOS device list...SUCCESS\n");
+
+    printf("Number of connected iOS devices...%d\n", iosDevices->elementCount);
+
+    const char *iosMethods[] = { "mainViewTest", "recipeDetailTest", "searchTest", "favoriteListTest" };
+
+    if (CreateIOSConfig(iosDevices, "/tmp/testng-ios.xml", "food-app", "test mainView", "/tmp/packages/TV2Mad.app", "dk.tv2.automation.appium.mad.TestMainView", iosMethods, 4))
+    {
+        printf("Creating configuration for iOS...SUCCESS\n");
+    }
+    else
+    {
+        printf("Creating configuration for iOS...FAILED\n");
+    }
 }

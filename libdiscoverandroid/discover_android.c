@@ -34,7 +34,7 @@ devicelist_t *GetConnectedAndroidDevices()
         dup2(fd[1],1);
         dup2(fd[1],2);
         close(fd[1]);
-        execl("/usr/bin/adb", "adb", "devices", NULL);
+        execl("/usr/local/bin/adb", "adb", "devices", "-l", NULL);
     }
     char buffer[1024];
     close(fd[1]);
@@ -140,6 +140,11 @@ static char *ParseBuffer(char *buffer)
         return NULL;
     }
     
+    if (strstr(buffer, "device") == NULL)
+    {
+        return NULL;
+    }
+
     char *serial = calloc(32, sizeof(char));
     sscanf(buffer, "%s %*s", serial);
     memset(buffer, 0, 1024);
@@ -153,7 +158,7 @@ static void StartADBDaemon(void)
 
     if (daemon == 0)
     {
-        execl("/usr/bin/adb", "adb", "start-server", NULL);
+        execl("/usr/local/bin/adb", "adb", "start-server", NULL);
     }
 
     printf("Starting adb server. Please wait...\n");
@@ -177,7 +182,7 @@ static char *GetDeviceManufacturer(char *deviceSerialNo)
         dup2(fd[1], 1);
         dup2(fd[1], 2);
         close(fd[1]);
-        execl("/usr/bin/adb", "adb", "-s", deviceSerialNo, "shell", "getprop ro.product.manufacturer", NULL);
+        execl("/usr/local/bin/adb", "adb", "-s", deviceSerialNo, "shell", "getprop ro.product.manufacturer", NULL);
     }
 
     char *manufacturer = calloc(16, sizeof(char));
@@ -209,7 +214,7 @@ static char *GetDeviceModel(char *deviceSerialNo)
         dup2(fd[1], 1);
         dup2(fd[1], 2);
         close(fd[1]);
-        execl("/usr/bin/adb", "adb", "-s", deviceSerialNo, "shell", "getprop ro.product.model", NULL);
+        execl("/usr/local/bin/adb", "adb", "-s", deviceSerialNo, "shell", "getprop ro.product.model", NULL);
     }
 
     char *model = calloc(64, sizeof(char));
@@ -224,6 +229,9 @@ static char *GetDeviceModel(char *deviceSerialNo)
     FILE *input = fdopen(fd[0], "r");
     while (fgets(model, 64, input));
     fclose(input);
+
+    model[strlen(model) - 2] = '\0';
+
     return model;
 }
 
@@ -241,7 +249,7 @@ static char *GetDeviceOSVersion(char *deviceSerialNo)
         dup2(fd[1], 1);
         dup2(fd[1], 2);
         close(fd[1]);
-        execl("/usr/bin/adb", "adb", "-s", deviceSerialNo, "shell", "getprop ro.build.version.release", NULL);
+        execl("/usr/local/bin/adb", "adb", "-s", deviceSerialNo, "shell", "getprop ro.build.version.release", NULL);
     }
 
     char *version = calloc(8, sizeof(char));
@@ -256,6 +264,9 @@ static char *GetDeviceOSVersion(char *deviceSerialNo)
     FILE *input = fdopen(fd[0], "r");
     while (fgets(version, 8, input));
     fclose(input);
+
+    version[strlen(version) - 2] = '\0';
+
     return version;
    
 }

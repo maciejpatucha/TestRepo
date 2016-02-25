@@ -44,7 +44,7 @@ devicelist_t *GetConnectediOSDevices()
         dup2(fd[1],1);
         dup2(fd[1],2);
         close(fd[1]);
-        execl("/usr/bin/idevice_id", "idevice_id", "-l", NULL);
+        execl("/usr/local/bin/idevice_id", "idevice_id", "-l", NULL);
     }
 
     close(fd[1]);
@@ -128,7 +128,7 @@ static iosprops_t *GetDeviceProps(char *udid)
         dup2(fd[1], 1);
         dup2(fd[1], 2);
         close(fd[1]);
-        execl("/usr/bin/ideviceinfo", "ideviceinfo", "-s", "-u", udid, NULL);
+        execl("/usr/local/bin/ideviceinfo", "ideviceinfo", "-s", "-u", udid, NULL);
     }
 
     close(fd[1]);
