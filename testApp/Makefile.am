@@ -2,12 +2,12 @@
 # The list of executables we are building seperated by spaces
 # the 'bin_' indicates that these build products will be installed
 # in the $(bindir) directory. For example /usr/bin
-bin_PROGRAMS=testApp
+#bin_PROGRAMS=testApp
 
 # Because a.out is only a sample program we don't want it to be installed.
 # The 'noinst_' prefix indicates that the following targets are not to be
 # installed.
-#noinst_PROGRAMS=testApp
+noinst_PROGRAMS=testApp
 
 #######################################
 # Build information for each executable. The variable name is derived
