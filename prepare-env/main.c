@@ -181,7 +181,7 @@ static const char **GetMethodsList(char *input, int numberOfMethods)
     }
 
     int i = 0;
-    printf("input: %s\n", input);
+
     while ((methods[i++] = strdup(strsep(&input, ","))) != NULL)
     {
         if (i >= numberOfMethods)
@@ -189,8 +189,6 @@ static const char **GetMethodsList(char *input, int numberOfMethods)
             break;
         }
     }
-
-    printf("methods[0]: %s\n", methods[0]);
 
     free(tmp);
 
